@@ -278,6 +278,9 @@ def _word_to_pdf(src: Path, out: Path) -> bool:
     if sys.platform != "win32":
         return False
     try:
+        import shutil
+        if not shutil.which("WINWORD.EXE"):
+            return False
         import win32com.client  # type: ignore
         word = win32com.client.DispatchEx("Word.Application")
         word.Visible = False
